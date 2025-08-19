@@ -1,0 +1,261 @@
+/**
+ * resources/css/app.css
+ * Tailwind v4 – Config via CSS (@import, @source, @theme, @layer, @utility)
+ * Paleta prioritaria: #007BFF (brand), #FFFFFF (light), #000000 (dark), grises #30333E y #666666
+ */
+
+/* Núcleo Tailwind v4 */
+@import 'tailwindcss';
+
+/* Fuentes recomendadas (puedes autoalojar si prefieres) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Nunito+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+/* Rutas a escanear */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.{js,ts,vue}';
+
+/* ─────────────────────────────────────────────────────────────
+   THEME (tokens). MARCA PRIORITARIA SEGÚN TU MANUAL
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  /* Tipografías */
+  --font-sans: Inter, Poppins, 'Nunito Sans', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+  --font-heading: Poppins, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-display: 'Playfair Display', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* === PALETA OFICIAL PRIORIZADA === */
+  /* Brand principal */
+  --color-brand-500: #007BFF;  /* Azul eléctrico */
+  --color-brand-600: #0062CC;
+  --color-brand-400: #3395FF;
+
+  /* Blancos y negros prioritarios */
+  --color-base-white: #FFFFFF;
+  --color-base-black: #000000;
+
+  /* Grises PRIORITARIOS (tu manual) */
+  --color-gray-700: #30333E; /* textos fuertes, superficies oscuras */
+  --color-gray-500: #666666; /* textos secundarios */
+  /* Escala auxiliar para utilidades de Tailwind */
+  --color-gray-50:  #F7F7F9;
+  --color-gray-100: #EFEFF2;
+  --color-gray-200: #E2E3E7;
+  --color-gray-300: #CBCDD6;
+  --color-gray-400: #A6A9B6;
+  /* 500 y 700 fijados arriba */
+  --color-gray-600: #505563;
+  --color-gray-800: #22242B;
+  --color-gray-900: #15171C;
+
+  /* Neón/efectos (para iluminación y acentos sutiles) */
+  --color-neon:    #00CFFF;
+  --color-magenta: #FF3EA5;
+  --color-lime:    #B6FF00;
+
+  /* Modos (superficies y texto) – con la PRIORIDAD pedida */
+  /* Claro */
+  --color-light-bg:      var(--color-base-white);
+  --color-light-surface: #F5F7FB;  /* sutil, no puro blanco, mejor lectura */
+  --color-light-text:    #111827;  /* casi negro para contraste AA/AAA */
+  --color-light-mute:    var(--color-gray-500);
+  --color-light-border:  #E5E7EB;
+
+  /* Oscuro */
+  --color-dark-bg:       var(--color-base-black); /* NEGRO prioritario */
+  --color-dark-surface:  #0B0B0B;               /* pared con tu base previa */
+  --color-dark-text:     #E5E7EB;
+  --color-dark-mute:     #B3B8C4;
+  --color-dark-border:   #1F1F1F;
+
+  /* Estados */
+  --color-success-500: #10B981;
+  --color-warn-500:    #F59E0B;
+  --color-danger-500:  #EF4444;
+
+  /* Radios y sombras */
+  --radius-xl: 1rem; --radius-2xl: 1.25rem; --radius-3xl: 1.5rem;
+  --shadow-soft: 0 4px 24px rgba(0,0,0,0.10);
+  --shadow-elev: 0 10px 30px rgba(0,0,0,0.15);
+  --shadow-neon: 0 0 8px rgba(0,207,255,.8), 0 0 18px rgba(0,207,255,.6);
+  --shadow-brand: 0 0 12px rgba(0,123,255,.7);
+
+  /* Z-index extra */
+  --z-60: 60; --z-70: 70; --z-80: 80; --z-90: 90; --z-100: 100;
+}
+
+/* Modo oscuro opcional via clase/atributo */
+:root.dark, [data-theme="dark"] {
+  /* Aquí podrías ajustar aún más si necesitas variaciones por tema */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  html { color-scheme: dark light; }
+  body {
+    @apply font-sans antialiased bg-[--color-dark-bg] text-[--color-dark-text] dark:bg-[--color-dark-bg] dark:text-[--color-dark-text];
+  }
+
+  /* Tipografía */
+  h1,h2,h3,h4,h5,h6 { @apply font-[--font-heading] tracking-tight; }
+  h1 { @apply text-4xl md:text-5xl font-extrabold; }
+  h2 { @apply text-3xl md:text-4xl font-bold; }
+  p  { @apply leading-7; }
+
+  /* Enlaces: azul eléctrico prioritario */
+  a { color: var(--color-brand-500); }
+  a:hover { color: var(--color-brand-400); text-decoration: none; }
+
+  /* Código */
+  code{ @apply font-[--font-mono] rounded-md px-1.5 py-0.5 bg-[#0e0e0e] text-[--color-dark-text]; }
+
+  /* Formularios accesibles con azul brand */
+  input, select, textarea {
+    @apply bg-[--color-dark-surface] text-[--color-dark-text] placeholder-[--color-dark-mute]
+           border border-[--color-dark-border] rounded-lg px-3 py-2 outline-none
+           focus:ring-2 focus:ring-[--color-brand-500] focus:border-[--color-brand-500];
+  }
+  label { @apply text-sm text-[--color-gray-500]; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   UTILIDADES / COMPONENTES
+   ───────────────────────────────────────────────────────────── */
+
+/* Contenedor */
+@utility container-outer { @apply max-w-7xl mx-auto px-4 md:px-6 lg:px-8; }
+
+/* Logo (tu guía: esquina superior izquierda) */
+@utility logo-left { @apply absolute top-4 left-4 z-[var(--z-100)]; }
+
+/* Cards */
+@utility card-soft { @apply rounded-xl bg-white/5 ring-1 ring-white/10 shadow-[var(--shadow-soft)] backdrop-blur-sm; }
+@utility card-elev { @apply rounded-2xl bg-[--color-dark-surface] shadow-[var(--shadow-elev)]; }
+@utility card-neon { @apply rounded-2xl bg-[--color-dark-surface] shadow-[var(--shadow-neon)]; }
+
+/* Divisor */
+@utility section-divider { @apply border-t border-[--color-dark-border]/60; }
+
+/* Botones – AZUL BRAND PRIORITARIO */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-medium
+         transition-all duration-200 active:scale-[.98] disabled:opacity-50 disabled:cursor-not-allowed;
+}
+@utility btn-primary {
+  background: var(--color-brand-500); color: #fff;
+}
+@utility btn-primary:hover {
+  background: var(--color-brand-400); box-shadow: var(--shadow-brand);
+}
+@utility btn-ghost {
+  @apply btn bg-white/5 hover:bg-white/10 text-[--color-dark-text] ring-1 ring-white/10;
+}
+@utility btn-outline {
+  @apply btn border-2;
+  border-color: var(--color-brand-500); color: var(--color-brand-500);
+}
+@utility btn-outline:hover {
+  background: var(--color-brand-500); color: #fff;
+}
+
+/* Badges */
+@utility badge { @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-white/10 bg-white/5; }
+@utility badge-gray { background: var(--color-gray-700); color: #fff; }
+@utility badge-success { background: color-mix(in srgb, var(--color-success-500) 20%, transparent); color: #fff; }
+@utility badge-warn { background: color-mix(in srgb, var(--color-warn-500) 20%, transparent); color: #fff; }
+@utility badge-danger { background: color-mix(in srgb, var(--color-danger-500) 20%, transparent); color: #fff; }
+
+/* Fondos dinámicos (degradados sutiles + texturas suaves) */
+@utility bg-hero-radial {
+  background-image:
+    radial-gradient(circle at 20% 10%, color-mix(in srgb, var(--color-brand-500) 25%, transparent) 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--color-neon) 18%, transparent) 0%, transparent 40%);
+}
+@utility bg-grid-12 {
+  background-image:
+    linear-gradient(var(--color-gray-800) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-gray-800) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Texto y fondos prioritarios */
+@utility text-ink { color: var(--color-gray-700); }   /* #30333E */
+@utility text-mute { color: var(--color-gray-500); }  /* #666666 */
+@utility bg-brand { background: var(--color-brand-500); }
+@utility text-brand { color: var(--color-brand-500); }
+
+/* Gradiente de texto (acento) */
+@utility text-gradient {
+  background: linear-gradient(90deg, var(--color-brand-400), var(--color-neon));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* Hover/preview en tarjetas */
+@utility card-hover { @apply transition-transform duration-300 hover:scale-[1.01] hover:shadow-[var(--shadow-elev)]; }
+
+/* Skeleton shimmer */
+@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@utility skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.15) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%; animation: shimmer 2s linear infinite;
+}
+
+/* Iluminación (brillos) */
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 12px rgba(0,123,255,.35), 0 0 24px rgba(0,123,255,.25); }
+  50%     { box-shadow: 0 0 18px rgba(0,123,255,.7),  0 0 36px rgba(0,123,255,.45); }
+}
+@utility animate-glow { animation: glow 2.8s ease-in-out infinite; }
+
+/* Ambilight (alrededor de video/imagen) */
+@keyframes ambilight {
+  0% { filter: drop-shadow(0 0 0 rgba(0,123,255,0)); }
+  50%{ filter: drop-shadow(0 0 12px rgba(0,123,255,.55)); }
+  100%{ filter: drop-shadow(0 0 0 rgba(0,123,255,0)); }
+}
+@utility animate-ambilight { animation: ambilight 3.2s ease-in-out infinite; }
+
+/* Parallax vertical sutil */
+@keyframes parallaxY { 0%{transform:translateY(-6%)} 100%{transform:translateY(6%)} }
+@utility animate-parallax-y { animation: parallaxY 8s ease-in-out infinite alternate; will-change: transform; }
+
+/* Float suave (decorativos) */
+@keyframes float { 0%,100%{transform:translateY(-2%)} 50%{transform:translateY(2%)} }
+@utility animate-float { animation: float 6s ease-in-out infinite; }
+
+/* Marquee (texto o logos) */
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@utility animate-marquee { animation: marquee 20s linear infinite; white-space: nowrap; }
+
+/* Formularios (componentes) */
+@layer components {
+  .label   { @apply text-sm text-[--color-gray-500] mb-1 inline-block; }
+  .input   { @apply w-full bg-[--color-dark-surface] text-[--color-dark-text] placeholder-[--color-gray-500]
+                   border border-[--color-dark-border] rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-[--color-brand-500] focus:border-[--color-brand-500]; }
+  .select  { @apply input appearance-none; }
+  .textarea{ @apply input min-h-32; }
+  .help    { @apply text-xs text-[--color-gray-500]/80 mt-1; }
+}
+
+/* Helpers de layout */
+@utility hero-grid { @apply grid grid-cols-1 lg:grid-cols-12 gap-8 items-center; }
+@utility card-grid { @apply grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4; }
+
+/* Logo guideline (opcional uso): <div class="logo-left">...</div> */
+
+/* ─────────────────────────────────────────────────────────────
+   EJEMPLOS (copiar en Blade donde lo necesites)
+   - Botón brand: class="btn btn-primary"
+   - Texto importante gris 700: class="text-ink"
+   - Texto secundario gris 500: class="text-mute"
+   - Fondo brand sutil: class="bg-brand text-white"
+   - Hero con degradado y parallax:
+     <section class="relative overflow-hidden bg-hero-radial">
+       <img src="/hero.jpg" class="w-full max-h-[70vh] object-cover animate-parallax-y" alt="">
+       <div class="absolute inset-0 pointer-events-none animate-ambilight"></div>
+     </section>
+   ───────────────────────────────────────────────────────────── */
